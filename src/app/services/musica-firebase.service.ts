@@ -21,13 +21,31 @@ export class MusicaFirebaseService {
     }
 
     inserirMusica(musica: Musica){
-      return this.angularFirestore.collection(this.PATH).add({nome: musica.nome, cantor: musica.cantor, genero: musica.genero, album: musica.album,
-      plataforma: musica.plataforma, nota: musica.nota, anoLancamento: musica.anoLancamento, downloadURL: musica.downloadURL});
+      return this.angularFirestore.collection(this.PATH).add({
+      nome: musica.nome,
+      cantor: musica.cantor,
+      genero: musica.genero,
+      album: musica.album,
+      plataforma: musica.plataforma,
+      nota: musica.nota,
+      anoLancamento: musica.anoLancamento,
+      downloadURL: musica.downloadURL});
     }
 
     editarMusica(musica: Musica, id: string){
+      return this.angularFirestore.collection(this.PATH).doc(id).update({
+        nome: musica.nome, cantor:
+        musica.cantor, genero: musica.genero,
+        album: musica.album,
+        plataforma: musica.plataforma,
+        nota: musica.nota,
+        anoLancamento: musica.anoLancamento ,
+        downloadURL: musica.downloadURL});
+    }
+
+    editarMusicaSimg(musica: Musica, id: string){
       return this.angularFirestore.collection(this.PATH).doc(id).update({nome: musica.nome, cantor: musica.cantor, genero: musica.genero, album: musica.album,
-        plataforma: musica.plataforma, nota: musica.nota, anoLancamento: musica.anoLancamento , downloadURL: musica.downloadURL});
+        plataforma: musica.plataforma, nota: musica.nota, anoLancamento: musica.anoLancamento});
     }
 
     excluirMusica(musica: Musica){
@@ -55,7 +73,7 @@ export class MusicaFirebaseService {
       return task;
     }
 
-    ReenviarImagem(imagem: any, id: string, musica: Musica){
+    ReenviarImagem(imagem: any, musica: Musica, id: string){
       const file = imagem.item(0);
       if(file.type.split('/')[0] !== 'image'){
         console.error('Tipo Não Suportado');

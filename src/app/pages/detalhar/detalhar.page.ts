@@ -38,7 +38,7 @@ export class DetalharPage implements OnInit {
       plataforma: [this.musica.plataforma, [Validators.required]],
       nota: [this.musica.nota, [Validators.required, Validators.min(0), Validators.max(10)]],
       anoLancamento: [this.musica.anoLancamento, [Validators.required]],
-      imagem: ["", [Validators.required]]
+      imagem: [""]
     })
   }
 
@@ -65,15 +65,27 @@ export class DetalharPage implements OnInit {
   }
 
   editar(){
-   this.musicaFS.ReenviarImagem(this.imagem, this.musica.id, this.formCadastro.value)
-   .then(() => {
-      this.presentAlert("MusicaFy", "Sucesso", "Edição Realizada com sucesso");
-      this.router.navigate(["/home"]);
-    })
-    .catch((error)=>{
-      this.presentAlert("MusicaFY", "Erro", "Erro ao editar a Música!");
-      console.log(error)
-    })
+    if(this.formCadastro.value.imagem != ""){
+      this.musicaFS.ReenviarImagem(this.imagem,this.formCadastro.value, this.musica.id)
+      .then(() => {
+        this.presentAlert("MusicaFy", "Sucesso", "Edição Realizada com sucesso");
+        this.router.navigate(["/home"]);
+      })
+      .catch((error)=>{
+        this.presentAlert("MusicaFy", "Erro", "Erro ao editar a Música!");
+        console.log(error)
+      })
+    }else{
+      this.musicaFS.editarMusicaSimg(this.formCadastro.value, this.musica.id)
+      .then(() => {
+        this.presentAlert("MusicaFy", "Sucesso", "Edição Realizada com sucesso");
+        this.router.navigate(["/home"]);
+      })
+      .catch((error)=>{
+        this.presentAlert("MusicaFy", "Erro", "Erro ao editar a Música!");
+        console.log(error)
+      })
+    }
   }
 
   cancel() {
