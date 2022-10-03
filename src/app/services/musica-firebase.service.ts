@@ -44,8 +44,14 @@ export class MusicaFirebaseService {
     }
 
     editarMusicaSimg(musica: Musica, id: string){
-      return this.angularFirestore.collection(this.PATH).doc(id).update({nome: musica.nome, cantor: musica.cantor, genero: musica.genero, album: musica.album,
-        plataforma: musica.plataforma, nota: musica.nota, anoLancamento: musica.anoLancamento});
+      return this.angularFirestore.collection(this.PATH).doc(id).update({
+        nome: musica.nome,
+        cantor: musica.cantor,
+        genero: musica.genero,
+        album: musica.album,
+        plataforma: musica.plataforma,
+        nota: musica.nota,
+        anoLancamento: musica.anoLancamento});
     }
 
     excluirMusica(musica: Musica){
